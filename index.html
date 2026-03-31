@@ -1,0 +1,139 @@
+<html lang="en">
+    <head>
+        <title>
+            Connections
+        </title>
+        <style>
+            * {
+                font-family: 'Franklin Gothic Medium', sans-serif;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .board {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .grid {
+                /* debugging border */
+                border: 1px solid black;
+                display: grid;
+                grid-template-columns: repeat(4, 150px);
+                gap: 10px;
+                margin: 150px auto 50px;
+                justify-content: center;
+                padding: 15px;
+            }
+
+            .tile {
+                width: 150px;
+                height: 80px;
+                background-color: #EFEFE6;
+                border-radius: 6px;
+
+                /* overwrite button defaults */
+                border: 0;
+                cursor: pointer;
+
+                /* text */
+                text-align: center;
+                font-weight: 300;
+                font-size: 20px;
+                text-transform: uppercase;
+            }
+
+            .tile.selected {
+                background-color: #5A594E;
+                color: white;
+            }
+
+            .submit {
+                border-radius: 32px;
+                width: 88px;
+                height: 44px;
+                border: 1px solid #121212;
+                cursor: pointer;
+            }
+
+            .correct {
+                background-color: #BA81C5;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="board">
+            <div class="grid">
+                <button class="tile">absence</button>
+                <button class="tile">crunch</button>
+                <button class="tile">deficit</button>
+                <button class="tile">pinch</button>
+                <button class="tile">cannon</button>
+                <button class="tile">crow's nest</button>
+                <button class="tile">jolly roger</button>
+                <button class="tile">plank</button>
+                <button class="tile">calf raise</button>
+                <button class="tile">chick flick</button>
+                <button class="tile">fry cook</button>
+                <button class="tile">kit kat</button>
+                <button class="tile">plunge</button>
+                <button class="tile">push-up</button>
+                <button class="tile">sports</button>
+                <button class="tile">wireless</button>
+            </div>
+            <button class="submit">Submit</button>
+        </div>
+
+        <script>
+            document.querySelectorAll('.tile').forEach(tile => {
+                tile.addEventListener('click', () => {
+                    tile.classList.toggle('selected');
+                });
+            });
+
+            const solution = {
+                "shortage": ["absence", "crunch", "deficit", "pinch"],
+                "parts of a pirate ship": ["cannon", "crow's nest", "jolly roger", "plank"],
+                "starting with baby animals": ["calf raise", "chick flick", "fry cook", "kit kat"],
+                "kinds of bras": ["plunge", "push-up", "sports", "wireless"]
+            };
+
+            document.querySelector('.submit').addEventListener('click', () => {
+                let guess = document.querySelectorAll('.tile.selected');
+
+                let found = false;
+                for (const [category, answers] of Object.entries(solution)) {
+                    let match = true;
+                    for (let i = 0; i < answers.length; i++) {
+                        if (answers[i] !== guess[i].textContent.toLowerCase()) {
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match) {
+                        guess.forEach(tile => {
+                            tile.classList.remove('selected');
+                            tile.classList.add('correct');
+                        })
+
+                        alert("Correct: " + category);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    alert("Incorrect");
+                }
+            });
+        </script>
+    </body>
+</html>
+
