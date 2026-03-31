@@ -14,6 +14,10 @@
                 align-items: center;
             }
 
+            .title {
+                font-size: 50px;
+            }
+
             .board {
                 display: flex;
                 flex-direction: column;
@@ -22,12 +26,10 @@
             }
 
             .grid {
-                /* debugging border */
-                border: 1px solid black;
                 display: grid;
                 grid-template-columns: repeat(4, 150px);
                 gap: 10px;
-                margin: 150px auto 50px;
+                margin: 50px auto;
                 justify-content: center;
                 padding: 15px;
             }
@@ -69,6 +71,7 @@
     </head>
     <body>
         <div class="board">
+            <h3 class="title">Connections</h3>
             <div class="grid">
                 <button class="tile">absence</button>
                 <button class="tile">crunch</button>
